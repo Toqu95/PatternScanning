@@ -1,7 +1,10 @@
+#pragma once
+
 #include <Windows.h>
 #include <iostream>
 #include <sstream>
-#include <iomanip>
+#include <vector>
+#include <Psapi.h>
 
 uintptr_t FindPattern(const char* module, const char* pattern) {
     MODULEINFO moduleInfo;
@@ -21,7 +24,8 @@ uintptr_t FindPattern(const char* module, const char* pattern) {
     while (patternStream >> byteStr) {
         if (byteStr == "?") {
             patternBytes.push_back(0);
-        } else {
+        }
+        else {
             patternBytes.push_back(static_cast<uint8_t>(std::stoul(byteStr, 0, 16)));
         }
     }
